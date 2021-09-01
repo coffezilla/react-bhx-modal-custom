@@ -19,7 +19,7 @@ To call your modal simple add a button:
 </button>
 ```
 
-Configure your type for Typescript porpose
+Configure your type for Typescript purpose
 
 ```tsx
 // type
