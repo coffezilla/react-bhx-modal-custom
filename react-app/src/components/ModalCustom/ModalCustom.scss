@@ -1,0 +1,123 @@
+// mixins bootstrap checkpoints
+$xs: 'only screen and (max-width: 576px)';
+$sm: 'only screen and (min-width: 577px) and (max-width: 767.98px)';
+$md: 'only screen and (min-width: 768.98px) and (max-width: 991.98px)';
+$lg: 'only screen and (min-width: 992.98px) and (max-width: 949px)';
+$xl: 'only screen and (min-width: 951px) and (max-width: 1199.98px)';
+$xxl: 'only screen and (min-width: 1200px) and (max-width: 9999.98px)';
+
+//  Animation
+//  .object-to-animate {
+//    @include animation('move-the-object .5s 1', 'move-the-object-again .5s 1 .5s');
+//  }
+@mixin animation($animate...) {
+	$max: length($animate);
+	$animations: '';
+
+	@for $i from 1 through $max {
+		$animations: #{$animations + nth($animate, $i)};
+
+		@if $i < $max {
+			$animations: #{$animations + ', '};
+		}
+	}
+	-webkit-animation: $animations;
+	-moz-animation: $animations;
+	-o-animation: $animations;
+	animation: $animations;
+}
+
+//  Keyframes
+//  Ex: @include keyframes(move-the-object) {
+//    0%   { left: 100px; }
+//    100% { left: 200px; }
+//  }
+@mixin keyframes($animationName) {
+	@-webkit-keyframes #{$animationName} {
+		@content;
+	}
+	@-moz-keyframes #{$animationName} {
+		@content;
+	}
+	@-o-keyframes #{$animationName} {
+		@content;
+	}
+	@keyframes #{$animationName} {
+		@content;
+	}
+}
+
+// animaUp
+@include keyframes(animaUp) {
+	0% {
+		-webkit-transform: translate(0px, 20px);
+		-moz-transform: translate(0px, 20px);
+		-o-transform: translate(0px, 20px);
+		-ms-transform: translate(0px, 20px);
+		transform: translate(0px, 20px);
+		opacity: 0;
+	}
+	100% {
+		-ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=100)';
+		filter: alpha(opacity=100);
+		opacity: 1;
+	}
+}
+
+.ani-modal-opening {
+	@include animation('animaUp .3s');
+}
+
+.bhx-modal-custom {
+	display: none;
+	height: 100vh;
+	width: 100%;
+	position: fixed;
+	z-index: 100;
+	overflow-y: auto;
+	top: 0px;
+	left: 0px;
+}
+
+.bhx-modal-custom__wrapper {
+	background-color: rgba(0, 0, 0, 0.4);
+	justify-content: center;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	// padding-top: 5rem;
+
+	@media #{$xs, $sm} {
+		align-items: start;
+		padding: 0;
+	}
+}
+
+.bhx-modal-custom__body {
+	background-color: white;
+
+	width: 100%;
+	max-width: 600px;
+	margin: 5rem 0px;
+
+	@media #{$xs, $sm} {
+		max-width: 100%;
+		margin: 0;
+		min-height: 100vh;
+	}
+
+	.card-wrapper {
+		margin: 0 !important;
+	}
+
+	&--full {
+		max-width: 1200px;
+	}
+}
+
+// HACK: block overflow from the body and block scroll
+body.modal-custom--block {
+	padding-right: 14px;
+	height: 100%;
+	overflow: hidden;
+}
