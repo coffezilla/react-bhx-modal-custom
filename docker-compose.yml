@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+
+  # frontend: react
+  app:
+    build:
+      context: .
+    container_name: react_front-${CONTAINER_PREFIX}
+    restart: always
+    volumes:
+      - "./react-app/public:/app/public"
+      - "./react-app/src:/app/src"
+    command: npm start
+    
+    ports:
+      - 3000:3000
+
+    environment:
+      - NODE_ENV=development
